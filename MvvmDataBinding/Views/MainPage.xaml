@@ -9,10 +9,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:vm="using:MvvmDataBinding.ViewModels" mc:Ignorable="d">
 
-    <Page.DataContext>
-        <vm:OrganizationViewModel/>
-    </Page.DataContext>
-    
+    <StackPanel>
+        <local:OrganizationView/>
+    </StackPanel>
     
     
     
