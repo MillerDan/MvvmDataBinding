@@ -37,7 +37,13 @@
     </UserControl.Resources>
 
     <Grid>
-        <!--<ListView ItemsSource="{Binding Path=People}" ItemTemplate="{StaticResource NiceFormat}" />-->
-        <ListView ItemsSource="{Binding People}" ItemTemplate="{StaticResource PeopleList}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button HorizontalAlignment="Left"
+                Content="Delete"
+                Command="{Binding DeleteCommand}"/>
+        <ListView ItemsSource="{Binding People}" ItemTemplate="{StaticResource PeopleList}" Grid.Row="1" />
     </Grid>
 </UserControl>
