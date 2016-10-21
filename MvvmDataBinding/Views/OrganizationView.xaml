@@ -6,6 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:MvvmDataBinding.ViewModels"
+    xmlns:controls="using:Template10.Controls"
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:Template10.Behaviors"
     mc:Ignorable="d">
 
     <UserControl.DataContext>
@@ -36,14 +40,51 @@
         </DataTemplate>
     </UserControl.Resources>
 
+    <!-- This code doesn't work in the button because the button has to have focus
+         in order to work.-->
+    <Interactivity:Interaction.Behaviors>
+        <behaviors:KeyBehavior Key="D" AndControl="True" Event="KeyUp">
+            <Core:InvokeCommandAction Command="{Binding DeleteCommand}"/>
+        </behaviors:KeyBehavior>
+        <behaviors:KeyBehavior Key="A" AndControl="True" Event="KeyUp">
+            <Core:InvokeCommandAction Command="{Binding AddCommand}"/>
+        </behaviors:KeyBehavior>
+    </Interactivity:Interaction.Behaviors>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button HorizontalAlignment="Left"
-                Content="Delete"
-                Command="{Binding DeleteCommand}"/>
-        <ListView ItemsSource="{Binding People}" ItemTemplate="{StaticResource PeopleList}" Grid.Row="1" />
+
+        <StackPanel Orientation="Horizontal">
+            <Button HorizontalAlignment="Left"
+                    Margin="5"
+                    Content="Delete"
+                    Width="70"
+                    Command="{Binding DeleteCommand}">
+                <!--<Interactivity:Interaction.Behaviors>
+                    <behaviors:KeyBehavior Key="D" AndControl="True" Event="KeyUp">
+                        <Core:InvokeCommandAction Command="{Binding DeleteCommand}"/>
+                    </behaviors:KeyBehavior>
+                </Interactivity:Interaction.Behaviors>-->
+            </Button>
+            
+            <Button Margin="5"
+                    Content="Add"
+                    Width="70"
+                    Command="{Binding AddCommand}">
+                <!--<Interactivity:Interaction.Behaviors>
+                    <behaviors:KeyBehavior Key="A" AndControl="True" Event="KeyUp">
+                        <Core:InvokeCommandAction Command="{Binding AddCommand}"/>
+                    </behaviors:KeyBehavior>
+                </Interactivity:Interaction.Behaviors>-->
+            </Button>
+        </StackPanel>
+
+        <ListView ItemsSource="{Binding Path=People}" 
+                  ItemTemplate="{StaticResource PeopleList}"
+                  Grid.Row="1"
+                  SelectedItem="{Binding Path=SelectedPerson, Mode=TwoWay}"/>
     </Grid>
 </UserControl>
