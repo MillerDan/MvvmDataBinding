@@ -15,9 +15,13 @@ namespace MvvmDataBinding.ViewModels
         private ObservableCollection<Person> people = new ObservableCollection<Person>();
         public OrganizationViewModel()
         {
-            people = new ObservableCollection<Person>(context.GetPeopleAsync().Result);
             DeleteCommand = new DelegateCommand(OnDelete, CanDelete);
             AddCommand = new DelegateCommand(OnAdd, CanAdd);
+        }
+
+        public async void LoadCustomersAsync()
+        {
+            people = new ObservableCollection<Person>(await context.GetPeopleAsync());
         }
 
         public DelegateCommand DeleteCommand { get; private set; }
