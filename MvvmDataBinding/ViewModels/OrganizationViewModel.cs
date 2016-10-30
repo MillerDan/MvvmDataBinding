@@ -21,7 +21,7 @@ namespace MvvmDataBinding.ViewModels
 
         public async void LoadCustomersAsync()
         {
-            people = new ObservableCollection<Person>(await context.GetPeopleAsync());
+            People = new ObservableCollection<Person>(await context.GetPeopleAsync());
         }
 
         public DelegateCommand DeleteCommand { get; private set; }
@@ -31,7 +31,7 @@ namespace MvvmDataBinding.ViewModels
         public ObservableCollection<Person> People
         {
             get { return people; }
-            set { people = value; }
+            set { Set(ref people, value); }
         }
 
         // Need selected list item code here....
@@ -42,7 +42,7 @@ namespace MvvmDataBinding.ViewModels
             get { return selectedPerson; }
             set
             {
-                selectedPerson = value;
+                Set(ref selectedPerson, value);
                 DeleteCommand.RaiseCanExecuteChanged();
             }
         }

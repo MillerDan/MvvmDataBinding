@@ -10,8 +10,7 @@
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:behaviors="using:Template10.Behaviors"
-    mc:Ignorable="d"
-    vm:MvvmBehaviors.LoadedMethodName="LoadCustomersAsync">
+    mc:Ignorable="d">
 
     <UserControl.DataContext>
         <vm:OrganizationViewModel/>
@@ -50,6 +49,9 @@
         <behaviors:KeyBehavior Key="A" AndControl="True" Event="KeyUp">
             <Core:InvokeCommandAction Command="{Binding AddCommand}"/>
         </behaviors:KeyBehavior>
+        <Core:EventTriggerBehavior EventName="Loaded">
+            <Core:CallMethodAction TargetObject="{Binding}" MethodName="LoadCustomersAsync"/>
+        </Core:EventTriggerBehavior>
     </Interactivity:Interaction.Behaviors>
 
     <Grid>
