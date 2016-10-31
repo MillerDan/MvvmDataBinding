@@ -12,7 +12,7 @@ namespace MvvmDataBinding.ViewModels
     public class OrganizationViewModel : ViewModelBase
     {
         private FakeService context = new FakeService();
-        private ObservableCollection<Person> people = new ObservableCollection<Person>();
+        
         public OrganizationViewModel()
         {
             DeleteCommand = new DelegateCommand(OnDelete, CanDelete);
@@ -28,6 +28,7 @@ namespace MvvmDataBinding.ViewModels
 
         public DelegateCommand AddCommand { get; private set; }
 
+        private ObservableCollection<Person> people = new ObservableCollection<Person>();
         public ObservableCollection<Person> People
         {
             get { return people; }
@@ -36,7 +37,6 @@ namespace MvvmDataBinding.ViewModels
 
         // Need selected list item code here....
         private Person selectedPerson;
-
         public Person SelectedPerson
         {
             get { return selectedPerson; }
@@ -56,7 +56,7 @@ namespace MvvmDataBinding.ViewModels
         private async void OnDelete()
         {
             Person person = SelectedPerson;
-            people.Remove(person);
+            People.Remove(person);
             await context.DeletePersonAsync(person);
         }
 
